@@ -19,14 +19,16 @@ const VARIANTS = {
     // Varsayılan (Mavi) -> gray-600
     Default: "bg-blue-600 hover:bg-blue-700"
 };
-const Button = ({name, renk}) => {
+const Button = ({children, name, renk}) => {
     // 1. Gelen 'renk' prop'una karşılık gelen renk sınıfını seç.
     // Eğer geçersiz bir durum gelirse varsayılan olarak 'KitapYok' (Gri) rengini al.
   const colorClass = VARIANTS[renk] || VARIANTS.Default;
-  const baseClass = "text-white p-2 rounded-lg transition duration-150";
+  const baseClass = "flex items-center gap-2 text-white p-2 rounded-lg transition duration-150";
   
   return (   
-    <button className={`${baseClass} ${colorClass}`}>{name}</button>    
+    <button className={`${baseClass} ${colorClass}`}>
+      {children}
+      {name}</button>    
   )
 }
 
