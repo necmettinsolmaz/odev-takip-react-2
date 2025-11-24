@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-// === Gerekli Sabitler ===
-const STORAGE_KEY = 'odevTakipData'; 
-// JSON objesindeki sınıf kodu olmayan anahtarlar
-const CONTROL_KEYS = ['appVersion', 'studentsMaster', 'settings', 'lastSaved'];
-
-// LOCAL STORAGE BOŞSA EKLENECEK BAŞLANGIÇ VERİSİ (Minimum Örnek)
-
-const Select = () => {
+const Select = ({classes}) => {
  
   return (
     <select 
@@ -19,7 +12,11 @@ const Select = () => {
         <option>
           Sınıf Seçiniz
         </option>     
-      
+        {classes.map(clas => (
+          <option key={clas.id} value={clas.id}>
+            {clas.name}
+          </option>
+        ))}
     </select>
   )
 }
