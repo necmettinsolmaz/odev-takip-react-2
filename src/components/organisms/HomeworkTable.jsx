@@ -2,11 +2,11 @@ import React from 'react'
 import TableFilter from '../molecules/TableFilter'
 import TableHeader from '../molecules/TableHeader'
 
-const HomeworkTable = () => {
+const HomeworkTable = ({selectedClass}) => {
   return (
     <div className="pt-4">
         <TableFilter/>
-        <TableHeader/>
+        <TableHeader selectedClass={selectedClass}/>
     </div>
   )
 }

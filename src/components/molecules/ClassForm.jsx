@@ -2,13 +2,16 @@ import React, {useState, useEffect } from 'react'
 import Button from '../atoms/Button'
 import Input from '../atoms/Input'
 import Select from '../atoms/Select'
-const ClassForm = () => {
+const ClassForm = ({onSelectChange}) => {
   
   // Sınıflar için state tanımlaması ve localStorage'dan başlangıç değeri alma
   const [classes, setClasses] = useState(() => {
     return JSON.parse(localStorage.getItem("classes")) || [];
   });
   const [inputValue, setInputValue] = useState('');
+  
+
+
 
   // Bileşen yüklendiğinde localStorage'dan sınıfları al
   useEffect(() => {
@@ -18,7 +21,12 @@ const ClassForm = () => {
 
   // Yeni sınıf ekleme fonksiyonu
   const handleAddClass = () => {  
-    const newClass = { id: classes.length + 1, name: inputValue };
+    const trimmedValue = inputValue.trim();
+    if (trimmedValue === '') {
+      alert('Sınıf adı bos birakilamaz');
+      return;
+    }
+    const newClass = { id: classes.length + 1, name: trimmedValue };
     setClasses( [...classes, newClass]);
     setInputValue('');
   }
@@ -34,7 +42,7 @@ const ClassForm = () => {
     <div className="bg-white p-2 rounded-lg shadow-md mb-2 flex flex-wrap gap-3 items-center">
         <Input placeholder={"Yeni Sınıf Adı"} value={inputValue} onValueChange={setInputValue}/>
         <Button name="Sınıf Ekle" onClick={handleAddClass}/>
-        <Select classes={classes} />
+        <Select classes={classes} onSelectChange={onSelectChange}/>
         <Button name="Sınıf Adını Düzenle" renk="Gelmedi"/>
         <Input placeholder={"Yeni Öğrenci Adı"}/>
         <Button name="Öğrenci Ekle" renk="Yaptı" />
