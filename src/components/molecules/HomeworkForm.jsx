@@ -7,7 +7,7 @@ const HomeworkForm = () => {
         <Input placeholder={"Kaynak"}/>
         <Input placeholder={"Konu"}/>
         <Input placeholder={"Sayfa"}/>
-        <Button name="Ödev Ekle" renk="Yaptı"/>
+        <Button name="Ödev Ekle" renk="Yeşil"/>
     </div>
   )
 }

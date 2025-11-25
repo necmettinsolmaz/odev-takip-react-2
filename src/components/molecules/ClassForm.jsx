@@ -41,11 +41,11 @@ const ClassForm = ({onSelectChange}) => {
   return (
     <div className="bg-white p-2 rounded-lg shadow-md mb-2 flex flex-wrap gap-3 items-center">
         <Input placeholder={"Yeni Sınıf Adı"} value={inputValue} onValueChange={setInputValue}/>
-        <Button name="Sınıf Ekle" onClick={handleAddClass}/>
+        <Button name="Sınıf Ekle"  renk="Yeşil" onClick={handleAddClass}/>
         <Select classes={classes} onSelectChange={onSelectChange}/>
-        <Button name="Sınıf Adını Düzenle" renk="Gelmedi"/>
+        <Button name="Sınıf Adını Düzenle" renk="default"/>
         <Input placeholder={"Yeni Öğrenci Adı"}/>
-        <Button name="Öğrenci Ekle" renk="Yaptı" />
+        <Button name="Öğrenci Ekle" renk="Yeşil" />
     </div>
   )
 }
