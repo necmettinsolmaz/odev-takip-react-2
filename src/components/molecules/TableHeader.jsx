@@ -3,12 +3,14 @@ import { toPng } from 'html-to-image';
 import Button from '../atoms/Button'
 import { IoCameraOutline } from "react-icons/io5";
 import { FaRegFileExcel } from "react-icons/fa";
+import ClassForm from './ClassForm';
 const TableHeader = ({selectedClass}) => {
  // 1. Ekran görüntüsü alınacak alanı işaretlemek için ref oluşturun
   const componentRef = useRef(null);
 
   // 2. Dışa Aktarma Fonksiyonu
 const handlePNGExport = () => {
+  console.log("PNG Dışa Aktarma Başladı");
     // 1. Ref'in mevcut DOM düğümünü kontrol edin
     if (componentRef.current === null) {
       return;
@@ -51,9 +53,7 @@ const handlePNGExport = () => {
       </div>
       
     </div>
-    <div className='flex gap-2 text-black bg-amber-100' >
-      <h1 className="text-sm italic m-2">Not: Renkli butonlara tıklayarak öğrencilerin ödev durumlarını güncelleyebilirsiniz.</h1>
-      </div>
+   
       </div>
   )
 }

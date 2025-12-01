@@ -13,7 +13,11 @@ const Pages = () => {
 
   return (
     <div className="font-sans p-4 bg-gray-100">
-        <InputDataForm onSelectChange={updateSelectedClass}/>
+        
+        <InputDataForm 
+          onSelectChange={updateSelectedClass}
+          selectedClass={selectedClass}
+        />
         <HomeworkTable selectedClass={selectedClass}/>
     </div>
   )

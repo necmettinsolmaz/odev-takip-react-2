@@ -5,7 +5,7 @@ import Button from '../atoms/Button'
 import { GrDocumentUpload } from "react-icons/gr";
 import { GrDocumentDownload } from "react-icons/gr";
 
-const InputDataForm = ({onSelectChange}) => {
+const InputDataForm = ({onSelectChange, selectedClass}) => {
   return (
     <>
     <div className="flex justify-between items-center mb-2">
@@ -17,7 +17,10 @@ const InputDataForm = ({onSelectChange}) => {
       </div>
     </div>
     <div>  
-        <ClassForm onSelectChange={onSelectChange}/>
+        <ClassForm 
+          onSelectChange={onSelectChange}
+          selectedClass={selectedClass}
+        />
         <HomeworkForm />
     </div>
     </>
