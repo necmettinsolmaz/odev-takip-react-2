@@ -3,7 +3,6 @@ import { toPng } from 'html-to-image';
 import Button from '../atoms/Button'
 import { IoCameraOutline } from "react-icons/io5";
 import { FaRegFileExcel } from "react-icons/fa";
-import ClassForm from './ClassForm';
 const TableHeader = ({selectedClass}) => {
  // 1. Ekran görüntüsü alınacak alanı işaretlemek için ref oluşturun
   const componentRef = useRef(null);

@@ -6,18 +6,10 @@ const ClassForm = ({onSelectChange, selectedClass}) => {
   
   // Sınıflar için state tanımlaması ve localStorage'dan başlangıç değeri alma
   const [classes, setClasses] = useState(() => {
-    return JSON.parse(localStorage.getItem("classes")) || [];
+    const storedClasses = JSON.parse(localStorage.getItem("classes")) || [];
+    return storedClasses;
   });
   const [inputValue, setInputValue] = useState('');
-  
-
-
-
-  // Bileşen yüklendiğinde localStorage'dan sınıfları al
-  useEffect(() => {
-    const storedClasses = JSON.parse(localStorage.getItem("classes")) || [];
-    setClasses(storedClasses);
-  }, []);
 
   // Yeni sınıf ekleme fonksiyonu
   const handleAddClass = () => {  
@@ -26,15 +18,41 @@ const ClassForm = ({onSelectChange, selectedClass}) => {
       alert('Sınıf adı bos birakilamaz');
       return;
     }
-    const newClass = { id: classes.length + 1, name: trimmedValue };
+    const newClass = { 
+      id: classes.length + 1, 
+      name: trimmedValue,
+      lessonName: '',
+      students: [],
+      homeWorks: []
+    };
     setClasses( [...classes, newClass]);
+    onSelectChange(newClass.name); // Yeni eklenen sınıfı seçili hale getir
     setInputValue('');
   }
+   const handleRemoveClass = () => {
+    const updatedClasses = classes.filter(clas => clas.name !== selectedClass);
+    setClasses(updatedClasses);
+    onSelectChange(updatedClasses[0]?.name || null); // İlk sınıfı seçili yap veya null
+    
+  };
+
+  const handleUpdateLessonName = (newLessonName) => {
+    const updatedClasses = classes.map(clas => {
+      if (clas.name === selectedClass) {
+        return { ...clas, lessonName: newLessonName };
+      }
+      return clas;
+    });
+    setClasses(updatedClasses);
+  };
+
+  useEffect(() => {
+    onSelectChange(classes[0]?.name); // İlk sınıfı varsayılan olarak seçili yap
+  }, []);
 
   // Sınıf ekleme işlemi sonrası localStorage güncellemesi
   useEffect(() => {
     localStorage.setItem("classes", JSON.stringify(classes));
-
   }, [classes]);
 
   
@@ -48,6 +66,7 @@ const ClassForm = ({onSelectChange, selectedClass}) => {
           selectedValue={selectedClass}
         />
         <Button name="Sınıf Adını Düzenle" renk="default"/>
+        <Button name="Sınıf Sil" renk="Kırmızı" onClick={handleRemoveClass}/> 
         <Input placeholder={"Yeni Öğrenci Adı"}/>
         <Button name="Öğrenci Ekle" renk="Yeşil" />
     </div>
