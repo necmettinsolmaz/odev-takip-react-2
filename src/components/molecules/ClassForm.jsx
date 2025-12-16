@@ -50,7 +50,7 @@ const ClassForm = ({onSelectChange, selectedClass, onAddClass, onRemoveClass, on
         onSelectChange={onSelectChange}
         selectedValue={selectedClass}
       />
-      <Button name="Sınıf Adını Düzenle" renk="default"/>
+      <Button name="Düzenle" renk="default"/>
       <Button name="Sınıf Sil" renk="Kırmızı" onClick={onRemoveClass}/> 
       <Input placeholder={"Yeni Öğrenci Adı"} value={studentName} onChange={(e) => setStudentName(e.target.value)} />
       <Button name="Öğrenci Ekle" renk="Yeşil" onClick={handleAddStudent}/>
