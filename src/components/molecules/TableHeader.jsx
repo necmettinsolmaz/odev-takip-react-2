@@ -1,12 +1,28 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { toPng } from 'html-to-image';
 import Button from '../atoms/Button'
 import { IoCameraOutline } from "react-icons/io5";
+import { FaRegFileExcel } from "react-icons/fa";
+const TableHeader = ({selectedClass, handlePNGExport}) => {
+ // 1. Ekran görüntüsü alınacak alanı işaretlemek için ref oluşturun
 
-const TableHeader = () => {
+  // 2. Dışa Aktarma Fonksiyonu
+  const onExportToPNG = () => {
+    console.log("Dışa Aktarma Butonuna Tıklandı");
+    if (!handlePNGExport) return;
+    handlePNGExport();
+  };
+
   return (
-    <div className="filter-area bg-white p-2 rounded-lg shadow-md mb-2 flex justify-between flex-wrap  items-center"> 
-      <h1 className="text-xl font-bold m-2">11 MF1 Sınıfı Ödev Tablosu</h1>
-      <Button name="Paylaş" renk="Gelmedi"  ><IoCameraOutline color="white" size={20}/></Button>
+    <div >
+      <div  className="filter-area bg-white p-2 rounded-lg shadow-md mb-2 flex justify-end items-center"> 
+        
+        <div className='flex gap-2 no-export-items'>
+          <Button name="Paylaş" renk="Mor"  onClick={onExportToPNG}><IoCameraOutline  /></Button>
+          <Button name="Excel" renk="Gri"><FaRegFileExcel /></Button>
+        </div>        
+      </div>
+      
     </div>
   )
 }
