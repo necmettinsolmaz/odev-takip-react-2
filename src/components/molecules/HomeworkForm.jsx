@@ -11,7 +11,6 @@ const HomeworkForm = ({ onAddHomework, classes, selectedClass }) => {
   const [topic, setTopic] = useState("");
   const [page, setPage] = useState("");
   const [givenDate, setGivenDate] = useState(new Date())
-  const [checkDate, setCheckDate] = useState(new Date());
 
   
  
@@ -28,7 +27,7 @@ const HomeworkForm = ({ onAddHomework, classes, selectedClass }) => {
       topic: trimmedTopic,
       page: trimmedPage,
       givenDate: givenDate,    
-      checkDate: givenDate + 7 * 24 * 60 * 60 * 1000, // varsayılan kontrol tarihi, verilen tarihten 7 gün sonra
+      checkDate: new Date(givenDate.getTime() + 7 * 24 * 60 * 60 * 1000) // varsayılan kontrol tarihi, verilen tarihten 7 gün sonra
     };
 
 

@@ -16,7 +16,7 @@ const CustomCalendar = React.forwardRef(({ onClick, homeworkCheckDate }, ref) =>
     <div
       ref={ref}
       onClick={onClick}
-      className="w-10 rounded-md overflow-hidden shadow-sm border border-red-200 cursor-pointer flex flex-col items-center"
+      className="w-10 rounded-md overflow-hidden shadow-sm border border-red-200 cursor-pointer flex flex-col items-center pb-0.5"
     >
       <div className="w-full bg-red-500 text-white text-[10px] font-semibold text-center">
         {month}
