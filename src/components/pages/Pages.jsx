@@ -79,6 +79,21 @@ const Pages = () => {
     });
     setClasses(updatedClasses);
   };
+   const handleUpdateHomeworkDate = (id, field, value) => {
+    const updatedClasses = classes.map(clas => {
+      if (clas.name === selectedClass) {
+        const updatedHomeworks = clas.homeworks.map(hw => {
+          if (hw.id === id) {
+            return { ...hw, [field]: value };
+          }
+          return hw;
+        });
+        return { ...clas, homeworks: updatedHomeworks };
+      }
+      return clas;
+    });
+    setClasses(updatedClasses);
+  };  
   // Sınıf ekleme işlemi sonrası localStorage güncellemesi
   useEffect(() => {
     localStorage.setItem("classes", JSON.stringify(classes));
@@ -100,6 +115,7 @@ const Pages = () => {
         <HomeworkTable 
           selectedClass={selectedClass} 
           classes={classes} 
+          onUpdateHomeworkDate={handleUpdateHomeworkDate}
         />
     </div>
   )

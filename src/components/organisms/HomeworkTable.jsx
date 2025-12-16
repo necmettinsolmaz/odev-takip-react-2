@@ -1,10 +1,10 @@
 import React from 'react'
 import TableFilter from '../molecules/TableFilter'
 import TableHeader from '../molecules/TableHeader'
-import HomeworkItem from '../molecules/HomeworkItem'
+import HomeworkList from '../organisms/HomeworkList'
 import { toPng } from 'html-to-image';
 import { useRef } from 'react';
-const HomeworkTable = ({selectedClass,classes}) => {
+const HomeworkTable = ({selectedClass,classes, onUpdateHomeworkDate}) => {
   const homeworkRef = useRef(null);
   const handlePNGExport = () => {
     
@@ -46,7 +46,12 @@ const HomeworkTable = ({selectedClass,classes}) => {
     <div className="pt-4">
         <TableFilter/>
         <TableHeader selectedClass={selectedClass} handlePNGExport={handlePNGExport}/>
-        <HomeworkItem classes={classes} selectedClass={selectedClass} ref={homeworkRef}/>
+        <HomeworkList 
+          classes={classes} 
+          selectedClass={selectedClass} 
+          ref={homeworkRef} 
+          onUpdateHomeworkDate={onUpdateHomeworkDate}
+        />
     </div>
   )
 }

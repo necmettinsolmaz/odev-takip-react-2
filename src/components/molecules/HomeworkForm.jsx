@@ -1,45 +1,48 @@
 import React, {useState} from 'react'
 import Button from '../atoms/Button'
 import Input from '../atoms/Input'
+// İlk tarihleri hesaplayan yardımcı fonksiyon
 
-const calculateInitialDates = () => {
-  const today = new Date();
-  const givenDateStr = today.toISOString().split('T')[0];
-  const checkDateObj = new Date();  
-  checkDateObj.setDate(checkDateObj.getDate() + 7); // 7 gün ekle
-  const checkDateStr = checkDateObj.toISOString().split('T')[0];
-  return { givenDateStr, checkDateStr };
-}
-const HomeworkForm = ({onAddHomework, classes, selectedClass}) => {
-  const { givenDateStr, checkDateStr } = calculateInitialDates();
-  const [source, setSource] = useState('');
-  const [topic, setTopic] = useState('');
-  const [page, setPage] = useState('');
-  const [givenDate, setGivenDate] = useState(givenDateStr);
-  const [checkDate, setCheckDate] = useState(checkDateStr);
+
+
+const HomeworkForm = ({ onAddHomework, classes, selectedClass }) => {
+  // Form state
+  const [source, setSource] = useState("");
+  const [topic, setTopic] = useState("");
+  const [page, setPage] = useState("");
+  const [givenDate, setGivenDate] = useState(new Date())
+
+  
+ 
+  // Form gönderme
   const handleAddHomework = () => {
     const trimmedSource = source.trim();
     const trimmedTopic = topic.trim();
     const trimmedPage = page.trim();
-    if (!trimmedSource || !trimmedTopic || !trimmedPage) {
-      alert("Lütfen bos alanları doldurunuz!");
-      return;
-    }
-    setGivenDate(new Date().toLocaleDateString());
-    setCheckDate(new Date().toLocaleDateString());
+    const targetClass = classes.find(c => c.name === selectedClass);
+
     const newHomework = {
-      id: classes.find(clas => clas.name === selectedClass).homeworks.length + 1,
+      id: (targetClass?.homeworks.length || 0) + 1,
       source: trimmedSource,
       topic: trimmedTopic,
       page: trimmedPage,
-      givenDate: givenDate,
-      checkDate: checkDate
+      givenDate: givenDate,    
+      checkDate: new Date(givenDate.getTime() + 7 * 24 * 60 * 60 * 1000) // varsayılan kontrol tarihi, verilen tarihten 7 gün sonra
     };
+
+
+   
+    if (!trimmedSource || !trimmedTopic || !trimmedPage) {
+      alert("Lütfen boş alanları doldurunuz!");
+      return;
+    }
     onAddHomework(newHomework);
-    setSource('');
-    setTopic('');
-    setPage('');
-  }
+    // Formu resetle
+    setSource("");
+    setTopic("");
+    setPage("");
+  };
+
   return (
     <div className="bg-white p-2 rounded-lg shadow-md mb-2 flex flex-wrap gap-3 items-center">
         <Input placeholder={"Kaynak"} value={source} onChange={(e) => setSource(e.target.value)}/>

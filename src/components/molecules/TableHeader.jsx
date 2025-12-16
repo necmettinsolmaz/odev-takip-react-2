@@ -15,8 +15,8 @@ const TableHeader = ({selectedClass, handlePNGExport}) => {
 
   return (
     <div >
-      <div  className="filter-area bg-white p-2 rounded-lg shadow-md mb-2 flex justify-between items-center"> 
-        <h1 className="text-md font-bold m-2"> {selectedClass} Sınıfı Ödev Tablosu</h1>
+      <div  className="filter-area bg-white p-2 rounded-lg shadow-md mb-2 flex justify-end items-center"> 
+        
         <div className='flex gap-2 no-export-items'>
           <Button name="Paylaş" renk="Mor"  onClick={onExportToPNG}><IoCameraOutline  /></Button>
           <Button name="Excel" renk="Gri"><FaRegFileExcel /></Button>
