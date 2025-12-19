@@ -13,66 +13,68 @@ import CustomCalendar from '../atoms/CustomCalendar';
 import { FiBookOpen } from "react-icons/fi";
 import Calendar from 'react-calendar';
 registerLocale('tr', tr);
+import { motion, AnimatePresence } from 'framer-motion';
 
 
 const HomeworkItem =  ({classes, selectedClass, homework, onUpdateHomeworkDate, isExpanded, onToggle}) => {
   // Detayların gösterilip gösterilmeyeceğini kontrol eden state
-
-
-  // Detay gösterme ikonunun döndürülme durumunu belirler
-  const ForwardIcon = isExpanded ? 'rotate-90' : 'rotate-0';
   
   const selectedClassObj = classes.find(clas => clas.name === selectedClass);
   if (!selectedClassObj) {
     return <div>Seçili sınıf bulunamadı.</div>;
   }
     // Kaynak Tipine Göre Renk ve Kısaltma Haritalaması (Küçük Harf Anahtarlar)
-  const sourceMap = {
-    'soru bankası': { 
-      color: 'bg-pink-600', 
-      icon: <FiBook />, 
-      initials: 'SB' 
-    },
-    'fasikül': { 
-      color: 'bg-purple-600', 
-      icon: <IoBookOutline />, 
-      initials: 'F' 
-    },
-    'test': { 
-      color: 'bg-orange-600', 
-      icon: <FaRegFileAlt />, 
-      initials: 'T' 
-    },
-    'ek kaynak': { 
-      color: 'bg-yellow-600', 
-      icon: null, 
-      initials: 'EK' 
-    },
-    'diğer': { 
-      color: 'bg-gray-400', 
-      icon: null, 
-      initials: 'D' 
-    },
-  };
+const colorMap = {
+   'soru bankası': {
+    bg: 'bg-pink-500',
+    border: 'border-pink-500',
+    text: 'text-pink-500',
+    icon: FiBook,
+  },
+  'fasikül': {
+    bg: 'bg-purple-500',
+    border: 'border-purple-500',
+    text: 'text-purple-500',
+    icon: IoBookOutline,
+  },
+  'test': {
+    bg: 'bg-orange-500',
+    border: 'border-orange-500',
+    text: 'text-orange-500',
+    icon: FaRegFileAlt,
+  },
+  'ek kaynak': {
+    bg: 'bg-yellow-500',
+    border: 'border-yellow-500',
+    text: 'text-yellow-500',
+    icon: CiBookmark,
+  },
+  'diğer': {
+    bg: 'bg-gray-400',
+    border: 'border-gray-400',
+    text: 'text-gray-400',
+    icon: null,
+  },
+};
 
     // Büyük/Küçük Harf Duyarlılığını Kaldıran Yardımcı Fonksiyon
-  const getSourceInfo = (source) => {
+  const getColorMap = (source) => {
     // 1. Gelen kaynağı küçük harfe dönüştürüp boşlukları trim'liyoruz.
     const normalizedSource = source ? source.toLocaleLowerCase('tr').trim() : '';
     if (!normalizedSource) {
-      return sourceMap['diğer'];
+      return colorMap['diğer'];
     }
-    for (const key in sourceMap) {
+    for (const key in colorMap) {
       if (key !== 'diğer') {
         if (normalizedSource.includes(key)) {
-          return sourceMap[key];
+          return colorMap[key];
         }
       }
     }
-    return sourceMap['diğer'];
+    return colorMap['diğer'];
   };
-  const { color, initials } = getSourceInfo(homework.source);
-  const item = { color, initials, icon: getSourceInfo(homework.source).icon };
+  const key = homework.source?.toLocaleLowerCase('tr').trim();
+  const { bg: bg , border: border, text: text, icon: Icon } = getColorMap(key);
 
 
 
@@ -80,14 +82,15 @@ const HomeworkItem =  ({classes, selectedClass, homework, onUpdateHomeworkDate, 
   <div className=" bg-white shadow-md rounded-lg  mb-2">
     <div className="flex">
     {/* sol şerit*/}
-    <div className="w-1 rounded-l bg-amber-500"></div>
+    <div className={`w-1 rounded-l ${bg}`}></div>
+
     <div className="flex-1 ml-4 py-2"> 
         <h3 className="text-base font-semibold text-gray-800 tracking-tight">
             {homework.id}-{homework.topic}
              
         </h3>   
         <p className="flex items-center gap-2 text-xs text-gray-600">
-            <FiBookOpen />
+            {Icon && <Icon className={`${text} text-sm `} />}
             {homework.source} 
             <span className="text-gray-400">•</span>
             {homework.page} 
@@ -130,21 +133,32 @@ const HomeworkItem =  ({classes, selectedClass, homework, onUpdateHomeworkDate, 
         </div>
     <div className="flex flex-col items-center justify-center">
         <button 
-            className={`text-gray-600 hover:text-gray-800 pr-2 transition-transform duration-200 ${ForwardIcon}`} 
+            className='text-gray-600 hover:text-gray-800 pr-2 '
             onClick={onToggle} // TIKLANDIĞINDA AÇILIR/KAPANIR
         > 
-        <IoIosArrowForward /> 
+          <motion.div
+            animate={{ rotate: isExpanded ? 90 : 0 }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
+          >
+            <IoIosArrowForward /> 
+          </motion.div>
         </button>
     </div>
   
   </div>
     
   {/* --- YENİ EKLENECEK ALAN: DETAY VE ÖĞRENCİ LİSTESİ --- */}
-   <div className={`transition-all duration-1000 overflow-hidden ${isExpanded ? 'max-h-96' : 'max-h-0'}`}>
-    
+  
+  <AnimatePresence initial={false}>
   {isExpanded && (
     // Genişletilmiş detay içeriği: Ana kapsayıcı altına, tüm satıra yayılır.
-   
+    <motion.div
+      initial={{ height: 0, opacity: 0}}
+      animate={{ height: 'auto', opacity: 1 }}
+      exit={{ height: 0, opacity: 0 }}
+      transition={{ duration: 0.2, ease: 'easeInOut' }}
+      style={{overflow: 'hidden'}}
+    >
       <HomeworkDetailModal 
       selectedClass={selectedClass} 
       selectedClassObj={selectedClassObj} 
@@ -152,9 +166,9 @@ const HomeworkItem =  ({classes, selectedClass, homework, onUpdateHomeworkDate, 
       onUpdateHomeworkDate={onUpdateHomeworkDate}
       />
     
-
+    </motion.div>
   )}
-    </div>
+    </AnimatePresence>
     
 </div>
       
