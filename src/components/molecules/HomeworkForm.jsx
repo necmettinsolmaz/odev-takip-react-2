@@ -16,6 +16,10 @@ const HomeworkForm = ({ onAddHomework, classes, selectedClass }) => {
  
   // Form gönderme
   const handleAddHomework = () => {
+    if(!selectedClass) {
+      alert("Lütfen bir sınıf seçin!");
+      return;
+    } 
     const trimmedSource = source.trim();
     const trimmedTopic = topic.trim();
     const trimmedPage = page.trim();
