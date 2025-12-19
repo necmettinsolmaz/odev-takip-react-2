@@ -18,7 +18,7 @@ const HomeworkList = React.forwardRef(({ classes, selectedClass, onUpdateHomewor
  
   return (
     <div ref={ref} >
-       <div className="bg-blue-600 text-white px-4 py-3 rounded-xl flex items-center gap-2 max-w-md mx-auto mb-2 shadow-sm">
+       <div className="bg-blue-600 text-white px-2 py-2 rounded-xl flex items-center gap-2 max-w-md mx-auto mb-2 shadow-sm">
        <IoCalendarClearOutline />
         <span className="text-sm font-semibold tracking-tight">
           {selectedClass} {selectedClassObj.lessonName} Dersi Ödev Listesi

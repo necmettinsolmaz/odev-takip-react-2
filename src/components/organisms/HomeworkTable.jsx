@@ -4,7 +4,7 @@ import TableHeader from '../molecules/TableHeader'
 import HomeworkList from '../organisms/HomeworkList'
 import { toPng } from 'html-to-image';
 import { useRef } from 'react';
-const HomeworkTable = ({selectedClass,classes, onUpdateHomeworkDate}) => {
+const HomeworkTable = ({selectedClass,classes, onUpdateHomeworkDate, onSelectChange}) => {
   const homeworkRef = useRef(null);
   const handlePNGExport = () => {
     
@@ -45,7 +45,7 @@ const HomeworkTable = ({selectedClass,classes, onUpdateHomeworkDate}) => {
   return (
     <div className="pt-4">
         <TableFilter/>
-        <TableHeader selectedClass={selectedClass} handlePNGExport={handlePNGExport}/>
+        <TableHeader classes={classes} selectedClass={selectedClass} handlePNGExport={handlePNGExport} onSelectChange={onSelectChange}/>
         <HomeworkList 
           classes={classes} 
           selectedClass={selectedClass} 

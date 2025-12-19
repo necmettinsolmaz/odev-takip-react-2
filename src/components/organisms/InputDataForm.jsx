@@ -4,8 +4,35 @@ import HomeworkForm from '../molecules/HomeworkForm'
 import Button from '../atoms/Button'
 import { GrDocumentUpload } from "react-icons/gr";
 import { GrDocumentDownload } from "react-icons/gr";
-
+import { Collapse } from 'antd';
 const InputDataForm = ({onSelectChange, selectedClass, onAddClass, onRemoveClass, onAddStudentToClass, onAddHomework, classes}) => {
+  const collapseItems = [
+    {
+    key: '1',
+    label: 'Sınıf Yönetimi',
+    children: (
+      <ClassForm 
+        onSelectChange={onSelectChange}
+        selectedClass={selectedClass}
+        onAddClass={onAddClass}
+        onRemoveClass={onRemoveClass}
+        onAddStudentToClass={onAddStudentToClass}
+        classes={classes}
+      />
+    ), 
+    },{
+    key: '2',
+    label: 'Ödev Yönetimi',
+    children: (
+      <HomeworkForm 
+        onSelectChange={onSelectChange}
+        selectedClass={selectedClass}
+        onAddHomework={onAddHomework}
+        classes={classes}
+      />
+    ), 
+  }];
+
   return (
     <>
     <div className="flex justify-between items-center mb-2">
@@ -17,15 +44,13 @@ const InputDataForm = ({onSelectChange, selectedClass, onAddClass, onRemoveClass
       </div>
     </div>
     <div>  
-        <ClassForm 
-          onSelectChange={onSelectChange}
-          selectedClass={selectedClass}
-          onAddClass={onAddClass}
-          onRemoveClass={onRemoveClass}
-          onAddStudentToClass={onAddStudentToClass}
-          classes={classes}
-        />
-        <HomeworkForm onAddHomework={onAddHomework} classes={classes} selectedClass={selectedClass}/>
+      <Collapse items={collapseItems} accordion={true} defaultActiveKey={['2']}>
+        
+      
+
+        
+        
+        </Collapse>
     </div>
     </>
   )

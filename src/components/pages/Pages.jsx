@@ -116,6 +116,7 @@ const Pages = () => {
           selectedClass={selectedClass} 
           classes={classes} 
           onUpdateHomeworkDate={handleUpdateHomeworkDate}
+          onSelectChange={handleSelectChange}
         />
     </div>
   )
