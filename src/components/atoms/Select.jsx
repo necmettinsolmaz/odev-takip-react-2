@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // Select Bileşeni (Kontrollü Hale Geldi)
-const Select = ({classes, onSelectChange, selectedValue}) => {
+const Select = ({options, onSelectChange, selectedValue}) => {
 
   return (
     <select 
@@ -13,9 +13,9 @@ const Select = ({classes, onSelectChange, selectedValue}) => {
       onChange={(e) => onSelectChange(e.target.value)}
     >
         <option value="">Sınıf Seciniz</option>
-        {classes.map(clas => (          
-          <option key={clas.id} value={clas.name}>
-            {clas.name}
+        {options.map(opt => (          
+          <option key={opt.id} value={opt.name}>
+            {opt.name}
           </option>
         ))}
     </select>
